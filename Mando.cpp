@@ -6,6 +6,8 @@ Mando::Mando() : Obstaculo() {
 
 Mando::Mando(int x, int y, int tipoMovimiento) : Obstaculo(x, y, 7, tipoMovimiento) {
     // El constructor de Aliado ya inicializa dx y dy según tipoMovimiento
+	dx = 1;  // Movimiento horizontal
+	dy = 0;
 }
 
 Mando::~Mando() {
@@ -24,8 +26,8 @@ void Mando::mover(Direccion tecla, int limiteAncho, int limiteAlto) {
         dx = 1;
         indiceY = 2; // Derecha
     }
-    if (x >= limiteAncho - ancho) {
-        x = limiteAncho - ancho;
+    if (x >= limiteAncho - ancho*2) {
+        x = limiteAncho - ancho*2;
         dx = -1;
         indiceY = 1; // Izquierda
     }

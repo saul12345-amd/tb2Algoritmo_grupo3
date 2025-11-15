@@ -25,7 +25,7 @@ namespace tb2Algoritmo {
 			//int nroVidas = rand()% 3;
 			service = new MundoIAService(pnlMundo->Width, pnlMundo->Height, 3);
 
-			char rutaFondo[] = "fondo1.png";
+			char rutaFondo[] = "MundoFondo1.png";
 			service->cargarFondo(rutaFondo);
 
 			char rutaMadre[] = "madre.png";
@@ -40,6 +40,13 @@ namespace tb2Algoritmo {
 			// Generar recursos en posiciones fijas
 			service->generarRecursos();
 			service->generarObstaculos();
+
+			// Configurar barra de actividad
+			pogressBarraActividad->Maximum = 100;
+			pogressBarraActividad->Value = 0;
+			pogressBarraActividad->ForeColor = System::Drawing::Color::Green;
+			recursosAnteriores = 0;
+
 			// Mostrar monedas y vidas iniciales cargadas
 			lblMonedas->Text = "Recursos: " + service->getRecursosRecolectados();
 			lblVidas->Text = "Vidas: " + service->getVidas();
@@ -78,8 +85,15 @@ namespace tb2Algoritmo {
 		MundoIAService* service;
 	private: System::Windows::Forms::Timer^ timer1;
 		   Direccion teclaPresionada;
-		   int contadorMensaje;
+	private: System::Windows::Forms::ProgressBar^ pogressBarraPensamientoCritico;
+	private: System::Windows::Forms::ProgressBar^ pogressBarraActividad;
 
+	private: System::Windows::Forms::PictureBox^ pictureBox2;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
+
+		   int contadorMensaje;
+		   int recursosAnteriores; // Para detectar cuando aumentan los recursos
+		   int recursosPensamiento;
 
 #pragma region Windows Form Designer generated code
 		   /// <summary>
@@ -89,17 +103,28 @@ namespace tb2Algoritmo {
 		   void InitializeComponent(void)
 		   {
 			   this->components = (gcnew System::ComponentModel::Container());
+			   System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FrmMundoIA::typeid));
 			   this->pnlMundo = (gcnew System::Windows::Forms::Panel());
 			   this->btnResetear = (gcnew System::Windows::Forms::Button());
 			   this->lblVidas = (gcnew System::Windows::Forms::Label());
 			   this->lblMonedas = (gcnew System::Windows::Forms::Label());
 			   this->lblMensaje = (gcnew System::Windows::Forms::Label());
 			   this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->pogressBarraPensamientoCritico = (gcnew System::Windows::Forms::ProgressBar());
+			   this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			   this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			   this->pogressBarraActividad = (gcnew System::Windows::Forms::ProgressBar());
 			   this->pnlMundo->SuspendLayout();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			   this->SuspendLayout();
 			   // 
 			   // pnlMundo
 			   // 
+			   this->pnlMundo->Controls->Add(this->pogressBarraActividad);
+			   this->pnlMundo->Controls->Add(this->pictureBox2);
+			   this->pnlMundo->Controls->Add(this->pogressBarraPensamientoCritico);
+			   this->pnlMundo->Controls->Add(this->pictureBox1);
 			   this->pnlMundo->Controls->Add(this->btnResetear);
 			   this->pnlMundo->Controls->Add(this->lblVidas);
 			   this->pnlMundo->Controls->Add(this->lblMonedas);
@@ -131,7 +156,7 @@ namespace tb2Algoritmo {
 				   static_cast<System::Int32>(static_cast<System::Byte>(53)), static_cast<System::Int32>(static_cast<System::Byte>(69)));
 			   this->lblVidas->Font = (gcnew System::Drawing::Font(L"Arial", 20, System::Drawing::FontStyle::Bold));
 			   this->lblVidas->ForeColor = System::Drawing::Color::White;
-			   this->lblVidas->Location = System::Drawing::Point(1670, 808);
+			   this->lblVidas->Location = System::Drawing::Point(1633, 827);
 			   this->lblVidas->Name = L"lblVidas";
 			   this->lblVidas->Padding = System::Windows::Forms::Padding(16, 12, 16, 12);
 			   this->lblVidas->Size = System::Drawing::Size(231, 65);
@@ -145,7 +170,7 @@ namespace tb2Algoritmo {
 				   static_cast<System::Int32>(static_cast<System::Byte>(215)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
 			   this->lblMonedas->Font = (gcnew System::Drawing::Font(L"Arial", 20, System::Drawing::FontStyle::Bold));
 			   this->lblMonedas->ForeColor = System::Drawing::Color::White;
-			   this->lblMonedas->Location = System::Drawing::Point(1643, 682);
+			   this->lblMonedas->Location = System::Drawing::Point(1585, 494);
 			   this->lblMonedas->Name = L"lblMonedas";
 			   this->lblMonedas->Padding = System::Windows::Forms::Padding(16, 12, 16, 12);
 			   this->lblMonedas->Size = System::Drawing::Size(279, 70);
@@ -169,6 +194,45 @@ namespace tb2Algoritmo {
 			   // 
 			   this->timer1->Tick += gcnew System::EventHandler(this, &FrmMundoIA::timer1_Tick);
 			   // 
+			   // pogressBarraPensamientoCritico
+			   // 
+			   this->pogressBarraPensamientoCritico->Location = System::Drawing::Point(1736, 675);
+			   this->pogressBarraPensamientoCritico->Name = L"pogressBarraPensamientoCritico";
+			   this->pogressBarraPensamientoCritico->Size = System::Drawing::Size(144, 12);
+			   this->pogressBarraPensamientoCritico->TabIndex = 3;
+			   // 
+			   // pictureBox1
+			   // 
+			   this->pictureBox1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			   this->pictureBox1->Cursor = System::Windows::Forms::Cursors::Hand;
+			   this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			   this->pictureBox1->Location = System::Drawing::Point(1665, 636);
+			   this->pictureBox1->Name = L"pictureBox1";
+			   this->pictureBox1->Size = System::Drawing::Size(242, 95);
+			   this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			   this->pictureBox1->TabIndex = 4;
+			   this->pictureBox1->TabStop = false;
+			   // 
+			   // pictureBox2
+			   // 
+			   this->pictureBox2->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			   this->pictureBox2->Cursor = System::Windows::Forms::Cursors::Hand;
+			   this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
+			   this->pictureBox2->Location = System::Drawing::Point(1665, 729);
+			   this->pictureBox2->Name = L"pictureBox2";
+			   this->pictureBox2->Size = System::Drawing::Size(242, 78);
+			   this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			   this->pictureBox2->TabIndex = 5;
+			   this->pictureBox2->TabStop = false;
+			   // 
+			   // pogressBarraActividad
+			   // 
+			   this->pogressBarraActividad->Location = System::Drawing::Point(1728, 754);
+			   this->pogressBarraActividad->Maximum = 100;
+			   this->pogressBarraActividad->Name = L"pogressBarraActividad";
+			   this->pogressBarraActividad->Size = System::Drawing::Size(152, 17);
+			   this->pogressBarraActividad->TabIndex = 6;
+			   // 
 			   // FrmMundoIA
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
@@ -184,6 +248,8 @@ namespace tb2Algoritmo {
 			   this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &FrmMundoIA::FrmMundoIA_KeyUp);
 			   this->pnlMundo->ResumeLayout(false);
 			   this->pnlMundo->PerformLayout();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			   this->ResumeLayout(false);
 
 		   }
@@ -194,6 +260,29 @@ namespace tb2Algoritmo {
 		timer1->Start();
 	}
 
+		   // Metodo para actualizar la barra de pensamiento critico (decrece)
+	private: void actualizarBarraPensamientoCritico() {
+		// Cada recurso recolectado disminuye 10% (1/10) de la barra
+		recursosPensamiento -= 10; // Disminuir 10%
+
+		// Limitar el minimo a 0%
+		if (recursosPensamiento < 0) {
+			recursosPensamiento = 0;
+		}
+
+		pogressBarraPensamientoCritico->Value = recursosPensamiento;
+	}
+	private: void actualizarBarraActividad(int recursosActuales) {
+		// Cada recurso representa 20% (1/5) de la barra
+		int porcentaje = recursosActuales * 20; // 20% por cada recurso
+
+		// Limitar el maximo a 100%
+		if (porcentaje > 100) {
+			porcentaje = 100;
+		}
+
+		pogressBarraActividad->Value = porcentaje;
+	}
 
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		// Solo verificar colision si no hay un dialogo visible
@@ -266,8 +355,18 @@ namespace tb2Algoritmo {
 		service->moverProtagonista(teclaPresionada);
 		service->moverRecursos();
 
+		// Obtener recursos actuales
+		int recursosActuales = service->getRecursosRecolectados();
+
+		// Verificar si se recolecto un nuevo recurso
+		if (recursosActuales > recursosAnteriores) {
+			actualizarBarraActividad(recursosActuales);
+			actualizarBarraPensamientoCritico(); // Disminuir pensamiento critico
+			recursosAnteriores = recursosActuales;
+		}
+
 		// Actualizar contador de monedas y vidas
-		lblMonedas->Text = "Recursos: " + service->getRecursosRecolectados();
+		lblMonedas->Text = "Recursos: " + recursosActuales;
 		lblVidas->Text = "Vidas: " + service->getVidas();
 
 		Graphics^ canvas = pnlMundo->CreateGraphics();
@@ -319,6 +418,13 @@ namespace tb2Algoritmo {
 		if (resultado == System::Windows::Forms::DialogResult::Yes) {
 			// Resetear progreso (tanto en archivo como en memoria)
 			service->resetRecursosRecolectados();
+
+			// Resetear las barras de progreso
+			pogressBarraActividad->Value = 0;
+			recursosAnteriores = 0;
+
+			pogressBarraPensamientoCritico->Value = 100;
+			recursosPensamiento = 100;
 
 			// Actualizar labels inmediatamente
 			lblMonedas->Text = "Recursos: 0";

@@ -203,12 +203,12 @@
     <Image Include="consola.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Image>
-    <Image Include="fondo1.png" />
     <Image Include="fondo2.jpg" />
     <Image Include="fondo3.png" />
     <Image Include="laptop.png" />
     <Image Include="letras.png" />
     <Image Include="madre.png" />
+    <Image Include="MundoFondo1.png" />
     <Image Include="profesor.png" />
     <Image Include="protagonista.png" />
     <Image Include="recursoIA.png" />

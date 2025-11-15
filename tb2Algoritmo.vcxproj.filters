@@ -161,9 +161,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="fondo1.png">
-      <Filter>Archivos</Filter>
-    </Image>
     <Image Include="fondo2.jpg">
       <Filter>Archivos</Filter>
     </Image>
@@ -195,6 +192,9 @@
       <Filter>Archivos</Filter>
     </Image>
     <Image Include="laptop.png">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="MundoFondo1.png">
       <Filter>Archivos</Filter>
     </Image>
   </ItemGroup>
