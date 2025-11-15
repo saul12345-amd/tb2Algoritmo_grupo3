@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Service">
+      <UniqueIdentifier>{08862029-33db-4c67-a706-1fda50ae6630}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{8656af3b-5221-4b5c-9031-d8504b4f73f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{c1fadd19-4e1a-4082-a05d-808e2f9fbda4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{7cbf3967-9fd9-4ff1-8b85-7fb8ca14a808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos">
+      <UniqueIdentifier>{55d35272-4243-4fc2-bd28-70b85ebe87c6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FrmMundoIA.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Recurso.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Principal.cpp" />
+    <ClCompile Include="Protagonista.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Progreso.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Pregunta.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Obstaculo.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Mundo.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Mando.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Madre.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="IaRecurso.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Fondo.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogo.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Aliado.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogoService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorArchivoService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="MundoIaService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="PreguntaService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="FrmMenu.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FrmInteraccionIA.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogoInteraccionService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="FrmInstrucciones.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FrmCreditos.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FrmMundoIA.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Recurso.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Protagonista.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Progreso.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Pregunta.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstaculo.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Mundo.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Mando.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Madre.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="IaRecurso.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Fondo.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogo.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Aliado.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogoService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorArchivoService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="MundoIaService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="PreguntaService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="FrmMenu.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FrmInteraccionIA.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogoInteraccionService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="FrmInstrucciones.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FrmCreditos.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="fondo1.png">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="fondo2.jpg">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="fondo3.png">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="madre.png">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="aliadoHumano.png">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="profesor.png">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="protagonista.png">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="consola.png">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="letras.png">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="celular.png">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="recursoIA.png">
+      <Filter>Archivos</Filter>
+    </Image>
+    <Image Include="laptop.png">
+      <Filter>Archivos</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="FondoMenu.mp4">
+      <Filter>Archivos</Filter>
+    </Media>
+  </ItemGroup>
+</Project>
