@@ -22,7 +22,7 @@ Obstaculo::Obstaculo(int x, int y, int velocidad, int tipoMovimiento) : Sprite(x
         // Solo horizontal
         dx = 1;
         dy = 0;
-        indiceY = 2;  // Derecha
+        indiceY = 0;  // Derecha
     }
     else if (tipoMovimiento == 1) {
         // Solo vertical
@@ -54,8 +54,8 @@ void Obstaculo::dibujar(Graphics^ canvas) {
         Rectangle cuadroDestino = Rectangle(
             x,
             y,
-            ancho * 1,
-            alto * 1
+            ancho * 0.7,
+            alto * 0.7
         );
 
         canvas->DrawImage(bitmap, cuadroDestino, cuadroOrigen, GraphicsUnit::Pixel);

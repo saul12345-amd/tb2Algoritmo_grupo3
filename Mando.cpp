@@ -6,8 +6,6 @@ Mando::Mando() : Obstaculo() {
 
 Mando::Mando(int x, int y, int tipoMovimiento) : Obstaculo(x, y, 7, tipoMovimiento) {
     // El constructor de Aliado ya inicializa dx y dy según tipoMovimiento
-	dx = 1;  // Movimiento horizontal
-	dy = 0;
 }
 
 Mando::~Mando() {
@@ -19,20 +17,20 @@ void Mando::mover(Direccion tecla, int limiteAncho, int limiteAlto) {
     if (indiceX >= columnas) indiceX = 0;
 
     x += dx * velocidad;
-
-    // Rebotar en los bordes horizontales
+    y += dy * velocidad;
+        // Rebotar en los bordes horizontales
     if (x <= 0) {
         x = 0;
         dx = 1;
-        indiceY = 2; // Derecha
+        indiceY = 0; // Derecha
     }
     if (x >= limiteAncho - ancho*2) {
         x = limiteAncho - ancho*2;
         dx = -1;
-        indiceY = 1; // Izquierda
+        indiceY = 0; // Izquierda
     }
 
     // Limitar posición vertical (aunque no se mueve, evita salirse)
-    if (y < 0) y = 0;
-    if (y > limiteAlto - alto) y = limiteAlto - alto;
+    if (y < 0) { y = 0; dy = 1; indiceY = 0; }
+    if (y > limiteAlto - alto) { y = limiteAlto - alto; dy = -1; indiceX = 0; }
 }

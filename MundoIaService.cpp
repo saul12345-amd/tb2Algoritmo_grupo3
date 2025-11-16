@@ -116,9 +116,10 @@ void MundoIAService::generarObstaculos() {
 			{650, 500},
 			{500, 450}
 	};
+	int tipoMov[5] = { 1,0,1,0,1 };
 	// Crear monedas con las posiciones leidas
 	for (int i = 0; i < 5; i++) {
-		Mando* mando = new Mando(posiciones[i][0], posiciones[i][1], 1);
+		Mando* mando = new Mando(posiciones[i][0], posiciones[i][1], tipoMov[i]);
 		mando->cargarImagen(rutaMoneda, 1, 4);
 		obstaculos.push_back(mando);
 	}
@@ -179,11 +180,13 @@ bool MundoIAService::verificarColisionProtagonistaMadre() {
 	return rectPersonaje.IntersectsWith(rectMadre);
 }
 bool MundoIAService::verificarColisionProtagonistaObstaculo() {
-	Rectangle rectPersonaje = personaje->getRectangle();
-	for each (Obstaculo * obstaculo in obstaculos) {
-		Rectangle rectObstaculo = obstaculo->getRectangle();
-		if (rectPersonaje.IntersectsWith(rectObstaculo)) {
-			return true;
+	if (getMadre()->getActivo()){
+		Rectangle rectPersonaje = personaje->getRectangle();
+		for each (Obstaculo * obstaculo in obstaculos) {
+			Rectangle rectObstaculo = obstaculo->getRectangle();
+			if (rectPersonaje.IntersectsWith(rectObstaculo)) {
+				return true;
+			}
 		}
 	}
 	return false; // No hay colision

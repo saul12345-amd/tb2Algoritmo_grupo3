@@ -121,7 +121,7 @@
   <data name="pictureBox2.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADwAAABeCAYAAAB/wHcjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
-        cwAAEnMBjCK5BwAAKSNJREFUeF7tm3dU1cfa73+ggGIH6b0Xkd7Zm96b9N5BQZBeBEEQEFTQYEFRxK5Y
+        cQAAEnEB89x6jgAAKSNJREFUeF7tm3dU1cfa73+ggGIH6b0Xkd7Zm96b9N5BQZBeBEEQEFTQYEFRxK5Y
         o4mJvffejRoT00xykphykpMT08znrv3zPefeS/7I6z05773vXX7WetaPzR5mP9+ZZ2aemdkIwkte8pKX
         vOQlL/n/lm3bNtrs3Dk46bXt2613b91qtXfXFsvdW7eay+yNXbvMXt++3XTXli2Wb+7aZXxwzx69w6+9
         pn1gzx7DofX8t+Dq1asK+lpqlw011d431FT7yFBT/UMjLbX3jbU13zfWVv/AREfrAxMdzff11FTf11YZ
@@ -1967,7 +1967,7 @@
   <data name="pictureBox3.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAXcAAAMsCAYAAACvFuLjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EAAACxABrSO9dQAADrdJREFUeF7t3D+yDVsfgGFDMIQ7BEMwA2bADJgBMyAVEUmoQiQkIlRFQoBMKpGQ
+        DgAACw4BQL7hQQAADrdJREFUeF7t3D+yDVsfgGFDMIQ7BEMwA2bADJgBMyAVEUmoQiQkIlRFQoBMKpGQ
         7K9+p2qpvtvZFwf1HW89T9Wqe273/nNPd+23e6/uc8/sAMg5s78AgL+fuAMEiTtAkLgDBIk7QJC4AwSJ
         O0CQuAMEiTtAkLgDBIk7QJC4AwSJO0CQuAMEiTtAkLgDBJ2quF+/fn13/vz53blz53YXL17cvXjxYv8h
         /+n9+/e7y5cvH40HDx7sr949efLkaN3Vq1f3VwEB8xmfz/604Hs+fvx49PgrV6587caMmzdv/lR73r59
@@ -2036,7 +2036,7 @@
   <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADwAAABeCAYAAAB/wHcjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
-        cwAAEnMBjCK5BwAAKSNJREFUeF7tm3dU1cfa73+ggGIH6b0Xkd7Zm96b9N5BQZBeBEEQEFTQYEFRxK5Y
+        cQAAEnEB89x6jgAAKSNJREFUeF7tm3dU1cfa73+ggGIH6b0Xkd7Zm96b9N5BQZBeBEEQEFTQYEFRxK5Y
         o4mJvffejRoT00xykphykpMT08znrv3zPefeS/7I6z05773vXX7WetaPzR5mP9+ZZ2aemdkIwkte8pKX
         vOQlL/n/lm3bNtrs3Dk46bXt2613b91qtXfXFsvdW7eay+yNXbvMXt++3XTXli2Wb+7aZXxwzx69w6+9
         pn1gzx7DofX8t+Dq1asK+lpqlw011d431FT7yFBT/UMjLbX3jbU13zfWVv/AREfrAxMdzff11FTf11YZ
@@ -2215,4 +2215,7 @@
         RK5CYII=
 </value>
   </data>
+  <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

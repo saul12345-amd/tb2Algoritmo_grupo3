@@ -19,10 +19,7 @@ namespace tb2Algoritmo {
 		FrmMundoIA(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
-			//int nroVidas = rand()% 3;
+
 			service = new MundoIAService(pnlMundo->Width, pnlMundo->Height, 3);
 
 			char rutaFondo[] = "MundoFondo1.png";
@@ -34,25 +31,41 @@ namespace tb2Algoritmo {
 			char rutaPersonaje[] = "protagonista.png";
 			service->cargarSpriteProtagonista(rutaPersonaje, 4, 4);
 
-			//TODO: HAMP(recomienda) en caso desee generar recursos aleatoriamente
-			// service->generarRecursos(5); // Generar 5 monedas aleatoriamente
-
 			// Generar recursos en posiciones fijas
 			service->generarRecursos();
 			service->generarObstaculos();
 
-			// Configurar barra de actividad
+			// IMPORTANTE: Resetear el progreso guardado para empezar de cero
+			service->getProgreso()->resetear();
+			service->resetRecursosRecolectados();
+
+			// Configurar barras de progreso con valores iniciales
 			pogressBarraActividad->Maximum = 100;
 			pogressBarraActividad->Value = 0;
 			pogressBarraActividad->ForeColor = System::Drawing::Color::Green;
-			recursosAnteriores = 0;
 
-			// Mostrar monedas y vidas iniciales cargadas
-			lblMonedas->Text = "Recursos: " + service->getRecursosRecolectados();
-			lblVidas->Text = "Vidas: " + service->getVidas();
+			pogressBarraPensamientoCritico->Maximum = 100;
+			pogressBarraPensamientoCritico->Value = 100;
+			pogressBarraPensamientoCritico->ForeColor = System::Drawing::Color::Blue;
+
+			// Inicializar variables de control
+			recursosAnteriores = 0;
+			recursosPensamiento = 100;
+			contadorMensaje = 0;
+			tiempoRestante = 30; // 30 segundos
+			juegoCompletado = false;
+
+			// Actualizar labels con valores iniciales
+			lblMonedas->Text = "Recursos: 0";
+			lblVidas->Text = "Vidas: 3";
+			lblTiempo->Text = "Tiempo: 30s";
 
 			teclaPresionada = Direccion::Ninguno;
-			contadorMensaje = 0;
+
+			// Configurar timer de cuenta regresiva
+			timerCuentaRegresiva = gcnew System::Windows::Forms::Timer();
+			timerCuentaRegresiva->Interval = 1000; // 1 segundo
+			timerCuentaRegresiva->Tick += gcnew EventHandler(this, &FrmMundoIA::timerCuentaRegresiva_Tick);
 		}
 
 	protected:
@@ -84,16 +97,20 @@ namespace tb2Algoritmo {
 	private:
 		MundoIAService* service;
 	private: System::Windows::Forms::Timer^ timer1;
+	private: System::Windows::Forms::Timer^ timerCuentaRegresiva;
 		   Direccion teclaPresionada;
 	private: System::Windows::Forms::ProgressBar^ pogressBarraPensamientoCritico;
 	private: System::Windows::Forms::ProgressBar^ pogressBarraActividad;
 
 	private: System::Windows::Forms::PictureBox^ pictureBox2;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: System::Windows::Forms::Label^ lblTiempo;
 
 		   int contadorMensaje;
 		   int recursosAnteriores; // Para detectar cuando aumentan los recursos
 		   int recursosPensamiento;
+		   int tiempoRestante; // Tiempo en segundos
+		   bool juegoCompletado;
 
 #pragma region Windows Form Designer generated code
 		   /// <summary>
@@ -114,6 +131,7 @@ namespace tb2Algoritmo {
 			   this->lblMonedas = (gcnew System::Windows::Forms::Label());
 			   this->lblMensaje = (gcnew System::Windows::Forms::Label());
 			   this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->lblTiempo = (gcnew System::Windows::Forms::Label());
 			   this->pnlMundo->SuspendLayout();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -129,6 +147,7 @@ namespace tb2Algoritmo {
 			   this->pnlMundo->Controls->Add(this->lblVidas);
 			   this->pnlMundo->Controls->Add(this->lblMonedas);
 			   this->pnlMundo->Controls->Add(this->lblMensaje);
+			   this->pnlMundo->Controls->Add(this->lblTiempo);
 			   this->pnlMundo->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->pnlMundo->Location = System::Drawing::Point(0, 0);
 			   this->pnlMundo->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
@@ -235,6 +254,21 @@ namespace tb2Algoritmo {
 			   this->lblMensaje->TabIndex = 0;
 			   this->lblMensaje->Visible = false;
 			   // 
+			   // lblTiempo
+			   // 
+			   this->lblTiempo->AutoSize = true;
+			   this->lblTiempo->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(180)),
+				   static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(140)),
+				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			   this->lblTiempo->Font = (gcnew System::Drawing::Font(L"Arial", 24, System::Drawing::FontStyle::Bold));
+			   this->lblTiempo->ForeColor = System::Drawing::Color::White;
+			   this->lblTiempo->Location = System::Drawing::Point(1447, 295);
+			   this->lblTiempo->Name = L"lblTiempo";
+			   this->lblTiempo->Padding = System::Windows::Forms::Padding(20, 15, 20, 15);
+			   this->lblTiempo->Size = System::Drawing::Size(266, 77);
+			   this->lblTiempo->TabIndex = 7;
+			   this->lblTiempo->Text = L"Tiempo: 30s";
+			   // 
 			   // timer1
 			   // 
 			   this->timer1->Tick += gcnew System::EventHandler(this, &FrmMundoIA::timer1_Tick);
@@ -264,7 +298,42 @@ namespace tb2Algoritmo {
 	private: System::Void FrmMundoIA_Load(System::Object^ sender, System::EventArgs^ e) {
 		FrmInteraccionIA^ frmInteraccion = gcnew FrmInteraccionIA();
 		frmInteraccion->ShowDialog();
+
+		// Iniciar ambos timers
 		timer1->Start();
+		timerCuentaRegresiva->Start();
+	}
+
+		   // Timer de cuenta regresiva
+	private: System::Void timerCuentaRegresiva_Tick(System::Object^ sender, System::EventArgs^ e) {
+		if (!juegoCompletado) {
+			tiempoRestante--;
+			lblTiempo->Text = "Tiempo: " + tiempoRestante + "s";
+
+			// Cambiar color cuando queda poco tiempo
+			if (tiempoRestante <= 10) {
+				lblTiempo->BackColor = System::Drawing::Color::FromArgb(180, 220, 53, 69); // Rojo
+			}
+			else if (tiempoRestante <= 20) {
+				lblTiempo->BackColor = System::Drawing::Color::FromArgb(180, 255, 193, 7); // Amarillo
+			}
+
+			// Si se acaba el tiempo
+			if (tiempoRestante <= 0) {
+				timerCuentaRegresiva->Stop();
+				timer1->Stop(); // Detener juego
+
+				MessageBox::Show(
+					"¡Tiempo agotado!\n\nNo lograste completar la barra de progreso a tiempo.",
+					"Fin del Juego",
+					MessageBoxButtons::OK,
+					MessageBoxIcon::Warning
+				);
+
+				// Aquí puedes cerrar el formulario o abrir otro
+				this->Close();
+			}
+		}
 	}
 
 		   // Metodo para actualizar la barra de pensamiento critico (decrece)
@@ -279,6 +348,7 @@ namespace tb2Algoritmo {
 
 		pogressBarraPensamientoCritico->Value = recursosPensamiento;
 	}
+
 	private: void actualizarBarraActividad(int recursosActuales) {
 		// Cada recurso representa 20% (1/5) de la barra
 		int porcentaje = recursosActuales * 20; // 20% por cada recurso
@@ -292,6 +362,11 @@ namespace tb2Algoritmo {
 	}
 
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+		// Si el juego está completado, no hacer nada más
+		if (juegoCompletado) {
+			return;
+		}
+
 		// Solo verificar colision si no hay un dialogo visible
 		if (!lblMensaje->Visible) {
 			bool hayColision = service->verificarColisionProtagonistaRecurso();
@@ -301,22 +376,16 @@ namespace tb2Algoritmo {
 				lblMensaje->Visible = true;
 			}
 		}
-		if (!lblMensaje->Visible) {
 			bool hayColisionMadre = service->verificarColisionProtagonistaMadre();
 			if (hayColisionMadre) {
-				// Iniciar un dialogo aleatorio
-				service->iniciarDialogoAleatorio();
-				lblMensaje->Visible = true;
+				service->getMadre()->setActivo(true);
 			}
-		}
-		if (!lblMensaje->Visible) {
-			bool hayColisionObstaculo = service->verificarColisionProtagonistaObstaculo();
+		bool hayColisionObstaculo = service->verificarColisionProtagonistaObstaculo();
 			if (hayColisionObstaculo) {
-				// Iniciar un dialogo aleatorio
-				service->iniciarDialogoAleatorio();
-				lblMensaje->Visible = true;
+				tiempoRestante -= 2;
+				service->getProtagonista()->setX(1);
+				service->getProtagonista()->setY(1);
 			}
-		}
 
 		// Actualizar y mostrar el dialogo letra por letra
 		if (service->dialogoEnProgreso()) {
@@ -327,32 +396,8 @@ namespace tb2Algoritmo {
 		else if (lblMensaje->Visible && !service->dialogoEnProgreso()) {
 			// Si el dialogo termino, esperar un tiempo antes de ocultarlo
 			contadorMensaje++;
-			/*TODO HAMP (Explica)
 
-
-			  A 30 FPS:
-			  - 90 caracteres ÷ 3 letras/frame = 30 frames
-			  - 30 frames ÷ 30 FPS = 1 segundo ← Aquí está el paso que falta
-
-			  A 60 FPS:
-			  - 90 caracteres ÷ 3 letras/frame = 30 frames
-			  - 30 frames ÷ 60 FPS = 0.5 segundos ← Aquí también falta
-
-
-			  Tiempo = Caracteres / (Letras_por_frame × FPS)
-
-			  Ejemplo:
-			  - A 30 FPS: 90 / (3 × 30) = 90/90 = 1 segundo
-			  - A 60 FPS: 90 / (3 × 60) = 90/180 = 0.5 segundos
-
-			  - Frame 1: Muestra "Hol"
-			  - Frame 2: Muestra "Hola m"
-			  - Frame 3: Muestra "Hola mundo"
-			  - Y así sucesivamente...
-
-			  Si tu juego corre a 60 FPS (frames por segundo), estarías mostrando 180 letras por segundo (60 frames × 3 letras), lo que da un efecto de escritura rápida y fluida.
-			*/
-			if (contadorMensaje >= 60) { // Mostrar 60 frames (aprox. 0.5 segundo) despues de terminar
+			if (contadorMensaje >= 30) { // Mostrar 60 frames (aprox. 0.5 segundo) despues de terminar
 				lblMensaje->Visible = false;
 				contadorMensaje = 0;
 			}
@@ -372,6 +417,25 @@ namespace tb2Algoritmo {
 			recursosAnteriores = recursosActuales;
 		}
 
+		// Verificar si se completó la barra de progreso (100%)
+		if (pogressBarraActividad->Value >= 100 && !juegoCompletado) {
+			juegoCompletado = true;
+			timer1->Stop(); // Detener movimiento del juego
+			timerCuentaRegresiva->Stop(); // Detener cuenta regresiva
+
+			MessageBox::Show(
+				"¡Felicidades!\n\n¡Has completado la barra de progreso!\n\nTiempo restante: " + tiempoRestante + " segundos",
+				"¡Juego Completado!",
+				MessageBoxButtons::OK,
+				MessageBoxIcon::Information
+			);
+
+			// Aquí puedes abrir otro formulario
+			// FrmSiguienteNivel^ frmSiguiente = gcnew FrmSiguienteNivel();
+			// frmSiguiente->ShowDialog();
+			// this->Close();
+		}
+
 		// Actualizar contador de monedas y vidas
 		lblMonedas->Text = "Recursos: " + recursosActuales;
 		lblVidas->Text = "Vidas: " + service->getVidas();
@@ -389,6 +453,11 @@ namespace tb2Algoritmo {
 	}
 
 	private: System::Void FrmMundoIA_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		// No permitir movimiento si el juego está completado
+		if (juegoCompletado) {
+			return;
+		}
+
 		switch (e->KeyCode) {
 		case Keys::Up:
 		case Keys::W:
@@ -416,7 +485,7 @@ namespace tb2Algoritmo {
 	private: System::Void btnResetear_Click(System::Object^ sender, System::EventArgs^ e) {
 		// Confirmar antes de resetear
 		System::Windows::Forms::DialogResult resultado = MessageBox::Show(
-			"¿Estas seguro que desea resetear el progreso?\n\nSe perderan todas las monedas recolectadas y las vidas.",
+			"¿Estas seguro que desea resetear el progreso?\n\nSe perderan todas las monedas recolectadas y el tiempo se reiniciará.",
 			"Confirmar Reset",
 			MessageBoxButtons::YesNo,
 			MessageBoxIcon::Warning
@@ -426,16 +495,26 @@ namespace tb2Algoritmo {
 			// Resetear progreso (tanto en archivo como en memoria)
 			service->resetRecursosRecolectados();
 
-			// Resetear las barras de progreso
+			// Resetear las barras de progreso a valores iniciales
 			pogressBarraActividad->Value = 0;
 			recursosAnteriores = 0;
 
 			pogressBarraPensamientoCritico->Value = 100;
 			recursosPensamiento = 100;
 
+			// Resetear tiempo y estado del juego
+			tiempoRestante = 30;
+			juegoCompletado = false;
+			lblTiempo->Text = "Tiempo: 30s";
+			lblTiempo->BackColor = System::Drawing::Color::FromArgb(180, 255, 140, 0); // Color naranja original
+
 			// Actualizar labels inmediatamente
 			lblMonedas->Text = "Recursos: 0";
 			lblVidas->Text = "Vidas: 3";
+
+			// Reiniciar timers
+			timer1->Start();
+			timerCuentaRegresiva->Start();
 
 			// Mostrar mensaje de confirmación
 			MessageBox::Show(
@@ -446,6 +525,7 @@ namespace tb2Algoritmo {
 			);
 		}
 	}
+
 	private: System::Void pnlMundo_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
 	};

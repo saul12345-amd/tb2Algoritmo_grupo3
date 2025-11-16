@@ -17,6 +17,8 @@ void DialogoInteraccionService::inicializarDialogosInteraccion() {
 	dialogosMundoIA.push_back("Tendrán a su alcance muchas herramientas. Úsenlas,\npero no se dejen usar por ellas. Lo importante\nno es lo que encuentren, sino cómo lo interpretan, cómo lo cuestionan,\ncómo lo transforman en conocimiento propio.");
 	/*Prepárense. Esta será la tarea más exigente que hayan enfrentado. Y si la abordan con criterio, con ética y con profundidad… no solo aprenderán: pensarán mejor. Haré 3 revisiones sobre su avance, realicen su mayor esfuerzo.*/
 	dialogosMundoIA.push_back("Prepárense. Esta será la tarea más exigente que hayan enfrentado.\n Y si la abordan con criterio, con ética y con profundidad…\nno solo aprenderán: pensarán mejor. Haré 3\nrevisiones sobre su avance, realicen su mayor esfuerzo.");
+	// dialogo para responder la pregunta
+	dialogosMundoIA.push_back("Responde la pregunta de reflexión en el panel de la derecha\ny selecciona la opción que consideres correcta.");
 }
 string DialogoInteraccionService::obtenerDialogoInteraccion(int indice, string nivel) {
 	if(nivel== "MundoIA") {
