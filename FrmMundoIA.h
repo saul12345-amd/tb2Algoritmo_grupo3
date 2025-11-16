@@ -105,18 +105,18 @@ namespace tb2Algoritmo {
 			   this->components = (gcnew System::ComponentModel::Container());
 			   System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FrmMundoIA::typeid));
 			   this->pnlMundo = (gcnew System::Windows::Forms::Panel());
+			   this->pogressBarraActividad = (gcnew System::Windows::Forms::ProgressBar());
+			   this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			   this->pogressBarraPensamientoCritico = (gcnew System::Windows::Forms::ProgressBar());
+			   this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			   this->btnResetear = (gcnew System::Windows::Forms::Button());
 			   this->lblVidas = (gcnew System::Windows::Forms::Label());
 			   this->lblMonedas = (gcnew System::Windows::Forms::Label());
 			   this->lblMensaje = (gcnew System::Windows::Forms::Label());
 			   this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
-			   this->pogressBarraPensamientoCritico = (gcnew System::Windows::Forms::ProgressBar());
-			   this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			   this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
-			   this->pogressBarraActividad = (gcnew System::Windows::Forms::ProgressBar());
 			   this->pnlMundo->SuspendLayout();
-			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			   this->SuspendLayout();
 			   // 
 			   // pnlMundo
@@ -131,10 +131,54 @@ namespace tb2Algoritmo {
 			   this->pnlMundo->Controls->Add(this->lblMensaje);
 			   this->pnlMundo->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->pnlMundo->Location = System::Drawing::Point(0, 0);
+			   this->pnlMundo->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			   this->pnlMundo->Name = L"pnlMundo";
-			   this->pnlMundo->Size = System::Drawing::Size(1924, 1170);
+			   this->pnlMundo->Size = System::Drawing::Size(1713, 844);
 			   this->pnlMundo->TabIndex = 0;
 			   this->pnlMundo->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &FrmMundoIA::pnlMundo_Paint);
+			   // 
+			   // pogressBarraActividad
+			   // 
+			   this->pogressBarraActividad->Location = System::Drawing::Point(1552, 598);
+			   this->pogressBarraActividad->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			   this->pogressBarraActividad->Name = L"pogressBarraActividad";
+			   this->pogressBarraActividad->Size = System::Drawing::Size(135, 14);
+			   this->pogressBarraActividad->TabIndex = 6;
+			   // 
+			   // pictureBox2
+			   // 
+			   this->pictureBox2->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			   this->pictureBox2->Cursor = System::Windows::Forms::Cursors::Hand;
+			   this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
+			   this->pictureBox2->Location = System::Drawing::Point(1494, 577);
+			   this->pictureBox2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			   this->pictureBox2->Name = L"pictureBox2";
+			   this->pictureBox2->Size = System::Drawing::Size(216, 63);
+			   this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			   this->pictureBox2->TabIndex = 5;
+			   this->pictureBox2->TabStop = false;
+			   // 
+			   // pogressBarraPensamientoCritico
+			   // 
+			   this->pogressBarraPensamientoCritico->Location = System::Drawing::Point(1552, 540);
+			   this->pogressBarraPensamientoCritico->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			   this->pogressBarraPensamientoCritico->Name = L"pogressBarraPensamientoCritico";
+			   this->pogressBarraPensamientoCritico->Size = System::Drawing::Size(128, 10);
+			   this->pogressBarraPensamientoCritico->TabIndex = 3;
+			   // 
+			   // pictureBox1
+			   // 
+			   this->pictureBox1->BackColor = System::Drawing::Color::Transparent;
+			   this->pictureBox1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			   this->pictureBox1->Cursor = System::Windows::Forms::Cursors::Hand;
+			   this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			   this->pictureBox1->Location = System::Drawing::Point(1494, 508);
+			   this->pictureBox1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			   this->pictureBox1->Name = L"pictureBox1";
+			   this->pictureBox1->Size = System::Drawing::Size(216, 77);
+			   this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			   this->pictureBox1->TabIndex = 4;
+			   this->pictureBox1->TabStop = false;
 			   // 
 			   // btnResetear
 			   // 
@@ -142,9 +186,10 @@ namespace tb2Algoritmo {
 				   static_cast<System::Int32>(static_cast<System::Byte>(69)));
 			   this->btnResetear->Font = (gcnew System::Drawing::Font(L"Arial", 12, System::Drawing::FontStyle::Bold));
 			   this->btnResetear->ForeColor = System::Drawing::Color::White;
-			   this->btnResetear->Location = System::Drawing::Point(1665, 567);
+			   this->btnResetear->Location = System::Drawing::Point(1513, 454);
+			   this->btnResetear->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			   this->btnResetear->Name = L"btnResetear";
-			   this->btnResetear->Size = System::Drawing::Size(225, 63);
+			   this->btnResetear->Size = System::Drawing::Size(200, 50);
 			   this->btnResetear->TabIndex = 2;
 			   this->btnResetear->Text = L"Resetear Progreso";
 			   this->btnResetear->UseVisualStyleBackColor = false;
@@ -156,10 +201,10 @@ namespace tb2Algoritmo {
 				   static_cast<System::Int32>(static_cast<System::Byte>(53)), static_cast<System::Int32>(static_cast<System::Byte>(69)));
 			   this->lblVidas->Font = (gcnew System::Drawing::Font(L"Arial", 20, System::Drawing::FontStyle::Bold));
 			   this->lblVidas->ForeColor = System::Drawing::Color::White;
-			   this->lblVidas->Location = System::Drawing::Point(1633, 827);
+			   this->lblVidas->Location = System::Drawing::Point(1508, 642);
 			   this->lblVidas->Name = L"lblVidas";
-			   this->lblVidas->Padding = System::Windows::Forms::Padding(16, 12, 16, 12);
-			   this->lblVidas->Size = System::Drawing::Size(231, 65);
+			   this->lblVidas->Padding = System::Windows::Forms::Padding(14, 10, 14, 10);
+			   this->lblVidas->Size = System::Drawing::Size(205, 52);
 			   this->lblVidas->TabIndex = 2;
 			   this->lblVidas->Text = L"Vidas: 3";
 			   // 
@@ -170,10 +215,10 @@ namespace tb2Algoritmo {
 				   static_cast<System::Int32>(static_cast<System::Byte>(215)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
 			   this->lblMonedas->Font = (gcnew System::Drawing::Font(L"Arial", 20, System::Drawing::FontStyle::Bold));
 			   this->lblMonedas->ForeColor = System::Drawing::Color::White;
-			   this->lblMonedas->Location = System::Drawing::Point(1585, 494);
+			   this->lblMonedas->Location = System::Drawing::Point(1473, 381);
 			   this->lblMonedas->Name = L"lblMonedas";
-			   this->lblMonedas->Padding = System::Windows::Forms::Padding(16, 12, 16, 12);
-			   this->lblMonedas->Size = System::Drawing::Size(279, 70);
+			   this->lblMonedas->Padding = System::Windows::Forms::Padding(14, 10, 14, 10);
+			   this->lblMonedas->Size = System::Drawing::Size(240, 60);
 			   this->lblMonedas->TabIndex = 1;
 			   this->lblMonedas->Text = L"Recursos: 0";
 			   // 
@@ -183,10 +228,10 @@ namespace tb2Algoritmo {
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
 			   this->lblMensaje->Font = (gcnew System::Drawing::Font(L"Arial", 16, System::Drawing::FontStyle::Bold));
 			   this->lblMensaje->ForeColor = System::Drawing::Color::Yellow;
-			   this->lblMensaje->Location = System::Drawing::Point(3, 911);
+			   this->lblMensaje->Location = System::Drawing::Point(-6, 728);
 			   this->lblMensaje->Name = L"lblMensaje";
-			   this->lblMensaje->Padding = System::Windows::Forms::Padding(12);
-			   this->lblMensaje->Size = System::Drawing::Size(2008, 263);
+			   this->lblMensaje->Padding = System::Windows::Forms::Padding(11, 10, 11, 10);
+			   this->lblMensaje->Size = System::Drawing::Size(1785, 210);
 			   this->lblMensaje->TabIndex = 0;
 			   this->lblMensaje->Visible = false;
 			   // 
@@ -194,52 +239,14 @@ namespace tb2Algoritmo {
 			   // 
 			   this->timer1->Tick += gcnew System::EventHandler(this, &FrmMundoIA::timer1_Tick);
 			   // 
-			   // pogressBarraPensamientoCritico
-			   // 
-			   this->pogressBarraPensamientoCritico->Location = System::Drawing::Point(1736, 675);
-			   this->pogressBarraPensamientoCritico->Name = L"pogressBarraPensamientoCritico";
-			   this->pogressBarraPensamientoCritico->Size = System::Drawing::Size(144, 12);
-			   this->pogressBarraPensamientoCritico->TabIndex = 3;
-			   // 
-			   // pictureBox1
-			   // 
-			   this->pictureBox1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
-			   this->pictureBox1->Cursor = System::Windows::Forms::Cursors::Hand;
-			   this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			   this->pictureBox1->Location = System::Drawing::Point(1665, 636);
-			   this->pictureBox1->Name = L"pictureBox1";
-			   this->pictureBox1->Size = System::Drawing::Size(242, 95);
-			   this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			   this->pictureBox1->TabIndex = 4;
-			   this->pictureBox1->TabStop = false;
-			   // 
-			   // pictureBox2
-			   // 
-			   this->pictureBox2->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
-			   this->pictureBox2->Cursor = System::Windows::Forms::Cursors::Hand;
-			   this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
-			   this->pictureBox2->Location = System::Drawing::Point(1665, 729);
-			   this->pictureBox2->Name = L"pictureBox2";
-			   this->pictureBox2->Size = System::Drawing::Size(242, 78);
-			   this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			   this->pictureBox2->TabIndex = 5;
-			   this->pictureBox2->TabStop = false;
-			   // 
-			   // pogressBarraActividad
-			   // 
-			   this->pogressBarraActividad->Location = System::Drawing::Point(1728, 754);
-			   this->pogressBarraActividad->Maximum = 100;
-			   this->pogressBarraActividad->Name = L"pogressBarraActividad";
-			   this->pogressBarraActividad->Size = System::Drawing::Size(152, 17);
-			   this->pogressBarraActividad->TabIndex = 6;
-			   // 
 			   // FrmMundoIA
 			   // 
-			   this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
+			   this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			   this->ClientSize = System::Drawing::Size(1924, 1170);
+			   this->ClientSize = System::Drawing::Size(1713, 844);
 			   this->Controls->Add(this->pnlMundo);
 			   this->KeyPreview = true;
+			   this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			   this->Name = L"FrmMundoIA";
 			   this->Text = L"FrmMundoIA";
 			   this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
@@ -248,8 +255,8 @@ namespace tb2Algoritmo {
 			   this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &FrmMundoIA::FrmMundoIA_KeyUp);
 			   this->pnlMundo->ResumeLayout(false);
 			   this->pnlMundo->PerformLayout();
-			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			   this->ResumeLayout(false);
 
 		   }
